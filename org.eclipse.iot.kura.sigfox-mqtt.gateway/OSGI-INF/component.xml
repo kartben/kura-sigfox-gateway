@@ -1,0 +1,23 @@
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0"
+	activate="activate"
+	deactivate="deactivate"
+	enabled="true"
+	immediate="true" name="org.eclipse.iot.kura.sigfox_mqtt.gateway.Component">
+
+	<implementation class="org.eclipse.iot.kura.sigfox_mqtt.SigfoxGatewayComponent"/>
+
+	<reference name="HttpService" 
+              bind="setHttpService"
+              unbind="unsetHttpService"
+              interface="org.osgi.service.http.HttpService"/>
+ 
+    <reference name="DataService"
+              bind="setDataService"
+              unbind="unsetDataService"
+              cardinality="1..1"
+              interface="org.eclipse.kura.data.DataService"/>
+    <service>
+       <provide interface="org.eclipse.kura.data.DataServiceListener"/>
+    </service>
+
+</scr:component>

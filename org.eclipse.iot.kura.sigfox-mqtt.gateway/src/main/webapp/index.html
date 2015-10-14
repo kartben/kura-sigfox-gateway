@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+     <meta charset="utf-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+     <link href="sigfox/css/bootstrap.min.css" rel="stylesheet">
+    
+     <title>Sigfox-->MQTT gateway</title>
+   </head>
+   <body>
+      <h1>Sigfox to MQTT gateway</h1>
+      <p>You need to configure your Sigfox backend to setup this application 
+         as a callback for Sigfox communications on your Device Group.
+      </p>
+      <p>You should set up the HTTP <strong>POST</strong> callback payload to be as follows:</p>
+      <code><pre>{
+  "device" : "1A000",
+  "data" : "48656c6c6f",
+  "time" : 1444816990,
+  "rssi" : -125.00,
+  "position" : [44, 1]
+}</pre></code>
+      <h2>Last 10 routed messages</h2>
+      <table style="width=90%;" class="table">
+         <thead>
+            <tr>
+               <th>Timestamp</th>
+               <th>Device ID</th>
+               <th>Payload</th>
+               <th>RSSI</th>
+               <th>MQTT transmission status</th>
+            </tr>
+         </thead>
+         <tbody id="sigfox-messages">
+         </tbody>
+      </table>
+      <script src="sigfox/js/jquery-2.1.4.min.js"></script>
+      <script src="sigfox/js/index.js"></script>
+
+      <script src="sigfox/js/bootstrap.min.js"></script>
+   </body>
+</html>
