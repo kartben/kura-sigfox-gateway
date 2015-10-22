@@ -1,4 +1,4 @@
-f<project name="build-dp" default="build-dp" basedir="../../../../">
+<project name="build-dp" default="build-dp" basedir="../../../../">
 
 	<target name="build-dp">
     	<echo message="Building DP in ${basedir}" />
