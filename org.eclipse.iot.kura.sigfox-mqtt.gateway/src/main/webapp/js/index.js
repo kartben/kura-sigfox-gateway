@@ -1,3 +1,6 @@
+jQuery.fn.outerHTML = function() {
+  return jQuery('<div />').append(this.eq(0).clone()).html();
+};
 
 function hex2a(hexx) {
     var hex = hexx.toString();//force conversion
@@ -17,18 +20,20 @@ function hex2arrayBuffer(data) {
 }
 
 
-
 $(document).ready(function() {
     $('body').popover({
         selector: '.has-popover',
         trigger: 'hover focus',
         html: true,
-        template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><code><div class="popover-content"></div></code></div>',
+       // template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><code><div class="popover-content"></div></code></div>',
         content: function() {
             var payload = $(this).data('payload');
             if ($(this).hasClass('cbor-payload')) {
                 try {
-                    return JSON.stringify( CBOR.decode( hex2arrayBuffer(payload) ), null, 4 );
+                    var elem = $('<pre></pre>').text(
+                        JSON.stringify( CBOR.decode( hex2arrayBuffer(payload) ), null, 4 )
+                    );
+                    return elem.outerHTML();
                 } catch(e) {
                     return "<em>Not a CBOR document</em>"
                 }
@@ -52,6 +57,7 @@ $(document).ready(function() {
             })
             .done(function(data) {
 
+                // make this smarter (ie do not clear the whole list every time)
                 $("#sigfox-messages tr").remove();
 
                 for (var i = data.length - 1; i >= 0; i--) {
@@ -97,7 +103,7 @@ $(document).ready(function() {
                 console.log('AJAX error', jqxhr);
             })
             .always(function() {
-                setTimeout(updateUI, 1000);
+                setTimeout(updateUI, 2000);
             });
     }
 
